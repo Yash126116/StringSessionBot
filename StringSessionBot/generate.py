@@ -4,6 +4,7 @@ from pyrogram import Client, filters
 from asyncio.exceptions import TimeoutError
 from telethon.sessions import StringSession
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+import pyrogram.utils
 from pyrogram.errors import (
     ApiIdInvalid,
     PhoneNumberInvalid,
@@ -22,7 +23,7 @@ from telethon.errors import (
 )
 from data import Data
 
-channel_id = -1002006327852
+pyrogram.utils.channel_id = -1002006327852
 
 ask_ques = "Please choose the python library you want to generate string session for"
 buttons_ques = [
