@@ -6,4 +6,3 @@ TgCrypto==1.*
 pyrogram==2.*
 # Other dependencies
 sqlalchemy==1.4.15
-sqlalchemy-mongodbdialect==0.1.0  # Add this line
