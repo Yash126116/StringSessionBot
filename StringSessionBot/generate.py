@@ -23,8 +23,6 @@ from telethon.errors import (
 )
 from data import Data
 
-pyrogram.utils.channel_id = -1002006327852
-
 ask_ques = "Please choose the python library you want to generate string session for"
 buttons_ques = [
     [
