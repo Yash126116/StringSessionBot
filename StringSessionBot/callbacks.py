@@ -60,11 +60,12 @@ async def _callbacks(bot: Client, callback_query: CallbackQuery):
                 await generate_session(bot, callback_query.message, telethon=True)
         except Exception as e:
             error_message = ERROR_MESSAGE.format(str(e))
+            user_info = callback_query.from_user
+            user_details = f"User: {user_info.first_name} {user_info.last_name or ''} (@{user_info.username or 'No Username'})\nUser ID: {user_info.id}"
             print(traceback.format_exc())
-            await callback_query.message.reply(error_message)
             await bot.send_message(
                 chat_id=OWNER_ID,
-                text=f"An error occurred: {str(e)}\n\nTraceback:\n{traceback.format_exc()}",
+                text=f"An error occurred:\n\n{str(e)}\n\nTraceback:\n{traceback.format_exc()}\n\nUser Details:\n{user_details}",
             )
 
 ERROR_MESSAGE = (
