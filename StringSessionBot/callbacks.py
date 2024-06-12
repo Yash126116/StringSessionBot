@@ -65,7 +65,7 @@ async def _callbacks(bot: Client, callback_query: CallbackQuery):
             print(traceback.format_exc())
             await bot.send_message(
                 chat_id=OWNER_ID,
-                text=f"An error occurred:\n\n{str(e)}\n\nTraceback:\n{traceback.format_exc()}\n\nUser Details:\n{user_details}",
+                text=f"An error occurred in @Session_Generation_bot:\n\n{str(e)}\n\nTraceback:\n{traceback.format_exc()}\n\nUser Details:\n{user_details}",
             )
 
 ERROR_MESSAGE = (
