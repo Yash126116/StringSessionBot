@@ -4,12 +4,12 @@ from pyrogram import Client
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup
 from StringSessionBot.generate import generate_session, ask_ques, buttons_ques
 
+OWNER_ID = 1237293986  # Replace with the actual owner ID
 
 # Callbacks
 @Client.on_callback_query()
 async def _callbacks(bot: Client, callback_query: CallbackQuery):
     user = await bot.get_me()
-    # user_id = callback_query.from_user.id
     mention = user.mention
     query = callback_query.data.lower()
     if query.startswith("home"):
@@ -48,14 +48,7 @@ async def _callbacks(bot: Client, callback_query: CallbackQuery):
     elif query.startswith("pyrogram") or query.startswith("telethon"):
         try:
             if query == "pyrogram":
-                #await callback_query.answer("Please note that the new type of string sessions may not work in all bots, i.e, only the bots that have been updated to pyrogram v2 will work!", show_alert=True)
                 await generate_session(bot, callback_query.message)
-                """
-            # Maybe in future it'll come back.
-            elif query == "pyrogram1":
-                await callback_query.answer()
-                await generate_session(bot, callback_query.message, old_pyro=True)
-                """
             elif query == "pyrogram_bot":
                 await callback_query.answer("Please note that this bot session will be of pyrogram v2", show_alert=True)
                 await generate_session(bot, callback_query.message, is_bot=True)
@@ -66,12 +59,17 @@ async def _callbacks(bot: Client, callback_query: CallbackQuery):
                 await callback_query.answer()
                 await generate_session(bot, callback_query.message, telethon=True)
         except Exception as e:
+            error_message = ERROR_MESSAGE.format(str(e))
             print(traceback.format_exc())
-            print(e)
-            await callback_query.message.reply(ERROR_MESSAGE.format(str(e)))
+            await callback_query.message.reply(error_message)
+            await bot.send_message(
+                chat_id=OWNER_ID,
+                text=f"An error occurred: {str(e)}\n\nTraceback:\n{traceback.format_exc()}",
+            )
 
-
-ERROR_MESSAGE = "Oops! An exception occurred! \n\n**Error** : {} " \
-            "\n\nPlease visit https://t.me/+-LAXtYnqhO1mY2U9 if this message doesn't contain any " \
-            "sensitive information and you if want to report this as " \
-            "this error message is not being logged by us!"
+ERROR_MESSAGE = (
+    "Oops! An exception occurred! \n\n**Error** : {} "
+    "\n\nPlease visit https://t.me/+-LAXtYnqhO1mY2U9 if this message doesn't contain any "
+    "sensitive information and you if want to report this as "
+    "this error message is not being logged by us!"
+)
